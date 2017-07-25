@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
+import { DishService } from '../services/dish.service';
+
+import { Params, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -10,7 +14,6 @@ import { Comment } from '../shared/comment';
 })
 export class DishdetailComponent implements OnInit {
 
-  @Input()
   dish:Dish;
 
   getIcon(rating) {
@@ -35,9 +38,17 @@ export class DishdetailComponent implements OnInit {
     return icon;
   }
 
-  constructor() { }
+  constructor(private dishService:DishService,
+          private route: ActivatedRoute,
+          private location: Location) { }
 
   ngOnInit() {
+    let id = +this.route.snapshot.params['id'];
+    this.dish = this.dishService.getDish(id);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
