@@ -41,6 +41,43 @@
           -- {{comment.author}} {{comment.date | date}}
         </p>
       </md-list-item>
+      <!-- display preview only when form is valid -->
+      <md-list-item *ngIf="commentForm.status !== 'INVALID'">
+        <md-icon md-list-icon>{{getIcon(commentForm.value.rating)}}</md-icon>
+        <h3 md-line>{{commentForm.value.comment}}</h3>
+        <p md-line>
+          <span>{{commentForm.value.rating}} stars</span>
+        </p>
+        <p md-line>
+          -- {{commentForm.value.author}}
+        </p>
+      </md-list-item>
     </md-list>
+    <!-- <h3>Send us your comments</h3>
+    <p>{{ commentForm.value | json }} {{ commentForm.status | json }}</p> -->
+    <form novalidate [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <p>
+        <md-input-container class="half-width" dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
+          <input mdInput formControlName="author" placeholder="Name" type="text" required>
+          <md-hint>
+            <span [hidden]="!(formErrors.author)">
+                {{formErrors.author}}</span>
+          </md-hint>
+        </md-input-container>
+        <p>
+          <md-slider formControlName="rating" min="0" max="5" [tick-interval]="1" [thumb-label]="true" [value]="5">
+          </md-slider>
+        </p>
+        <p>
+          <md-input-container class="full-width">
+            <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=3></textarea>
+            <md-hint>
+              <span [hidden]="!(formErrors.comment)">
+                    {{formErrors.comment}}</span>
+            </md-hint>
+          </md-input-container>
+        </p>
+        <button type="submit" md-button class="background-primary text-floral-white" [disabled]="commentForm.invalid">Submit</button>
+    </form>
   </div>
 </div>
