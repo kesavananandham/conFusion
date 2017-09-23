@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { baseURL } from './shared/baseurl';
 
 import { AppComponent } from './app.component';
 
@@ -19,6 +21,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -40,12 +43,14 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     FormsModule,
     FlexLayoutModule,
+    HttpModule,
     MaterialModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  entryComponents: [ LoginComponent ],
-  providers: [ DishService, PromotionService, LeaderService ] ,
+  entryComponents: [LoginComponent],
+  providers: [DishService, PromotionService, LeaderService, ProcessHTTPMsgService,
+    { provide: 'BaseURL', useValue: baseURL }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
