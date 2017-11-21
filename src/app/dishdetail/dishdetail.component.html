@@ -14,18 +14,26 @@
         </p>
       </md-card-content>
       <md-card-actions>
-        <button md-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
+        <button md-button [routerLink]="['/dishdetail', prev]">
+          <span class="fa fa-chevron-left fa-lg"></span>
+        </button>
         <button md-button (click)="goBack()">BACK</button>
         <button md-button>LIKE</button>
         <button md-button>SHARE</button>
         <span class="flex-spacer"></span>
-        <button md-button [routerLink]="['/dishdetail', next]"><span class="fa fa-chevron-right fa-lg"></span></button>
+        <button md-button [routerLink]="['/dishdetail', next]">
+          <span class="fa fa-chevron-right fa-lg"></span>
+        </button>
       </md-card-actions>
     </md-card>
   </div>
-  <div [hidden]="dish">
+  <div [hidden]="dish || errMess">
     <md-spinner></md-spinner>
     <h4>Loading ... Please Wait</h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
   <div fxFlex="40" *ngIf="dish">
@@ -61,7 +69,7 @@
           <input mdInput formControlName="author" placeholder="Name" type="text" required>
           <md-hint>
             <span [hidden]="!(formErrors.author)">
-                {{formErrors.author}}</span>
+              {{formErrors.author}}</span>
           </md-hint>
         </md-input-container>
         <p>
@@ -73,7 +81,7 @@
             <textarea mdInput formControlName="comment" placeholder="Your Comment" rows=3></textarea>
             <md-hint>
               <span [hidden]="!(formErrors.comment)">
-                    {{formErrors.comment}}</span>
+                {{formErrors.comment}}</span>
             </md-hint>
           </md-input-container>
         </p>
