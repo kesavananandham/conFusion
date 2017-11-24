@@ -5,6 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 import { baseURL } from './shared/baseurl';
 
 import { AppComponent } from './app.component';
@@ -46,7 +48,8 @@ import { LoginComponent } from './login/login.component';
     HttpModule,
     MaterialModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
   ],
   entryComponents: [LoginComponent],
   providers: [DishService, PromotionService, LeaderService, ProcessHTTPMsgService,
